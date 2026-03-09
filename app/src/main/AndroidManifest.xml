@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:usesCleartextTraffic="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TriageAI">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".OnboardingActivity" android:exported="false" />
+        <activity android:name=".DoctorDashboardActivity" android:exported="false" />
+        <activity android:name=".ParamedicDashboardActivity" android:exported="false" />
+        <activity android:name=".AdminDashboardActivity" android:exported="false" />
+        <activity android:name=".AdminProfileActivity" android:exported="false" />
+        <activity android:name=".AddStaffActivity" android:exported="false" />
+        <activity android:name=".RoleSelectionActivity" android:exported="false" />
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".ForgotPasswordActivity" android:exported="false" />
+        <activity android:name=".CheckEmailActivity" android:exported="false" />
+        <activity android:name=".CriticalCasesActivity" android:exported="false" />
+        <activity android:name=".UrgentCasesActivity" android:exported="false" />
+        <activity android:name=".NonUrgentCasesActivity" android:exported="false" />
+        <activity android:name=".PatientsActivity" android:exported="false" />
+        <activity android:name=".DoctorPatientsActivity" android:exported="false" />
+        <activity android:name=".DoctorHistoryActivity" android:exported="false" />
+        <activity android:name=".PatientDetailActivity" android:exported="false" />
+        <activity android:name=".TriageStep1Activity" android:exported="false" />
+        <activity android:name=".TriageStep2Activity" android:exported="false" />
+        <activity android:name=".TriageStep3Activity" android:exported="false" />
+        <activity android:name=".TriageStep4Activity" android:exported="false" />
+        <activity android:name=".TriageStep5Activity" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".DoctorSettingsActivity" android:exported="false" />
+        <activity android:name=".UserProfileActivity" android:exported="false" />
+        <activity android:name=".DoctorUserProfileActivity" android:exported="false" />
+        <activity android:name=".EditDoctorProfileActivity" android:exported="false" />
+        <activity android:name=".EditParamedicProfileActivity" android:exported="false" />
+        <activity android:name=".ChangePasswordActivity" android:exported="false" />
+        <activity android:name=".DoctorPrivacyActivity" android:exported="false" />
+        <activity android:name=".ParamedicPrivacyActivity" android:exported="false" />
+        <activity android:name=".DoctorAiTransparencyActivity" android:exported="false" />
+        <activity android:name=".ParamedicAiTransparencyActivity" android:exported="false" />
+        <activity android:name=".DoctorSystemDisclaimerActivity" android:exported="false" />
+        <activity android:name=".ParamedicSystemDisclaimerActivity" android:exported="false" />
+        <activity android:name=".DoctorTermsOfServiceActivity" android:exported="false" />
+        <activity android:name=".ParamedicTermsOfServiceActivity" android:exported="false" />
+        <activity android:name=".DoctorAppInfoActivity" android:exported="false" />
+        <activity
+            android:name=".MainNavActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AIProcessingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CriticalResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UrgentResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NonUrgentResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RiskScoreAnalysisActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WhyDecisionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecommendedActionsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivePatientDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TakeActionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DoctorNotificationCenterActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ParamedicNotificationCenterActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CaseReportActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".DoctorHistoryNewActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AdminNotificationCenterActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewStaffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditStaffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminCriticalExcessActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AdminCriticalCaseProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MedicationNotesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestNotesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AssessmentNotesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VitalsUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditAdminProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VitalsTimelineActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NonUrgentDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

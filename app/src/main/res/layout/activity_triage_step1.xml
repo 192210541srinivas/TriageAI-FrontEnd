@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".TriageStep1Activity">
+
+    <!-- Blue Header Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_primary"
+        android:paddingTop="48dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="New Patient Triage"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:tint="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/layoutProgress"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@drawable/bg_progress_active" />
+            <View android:layout_width="8dp" android:layout_height="match_parent" />
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@drawable/bg_progress_inactive" />
+            <View android:layout_width="8dp" android:layout_height="match_parent" />
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@drawable/bg_progress_inactive" />
+            <View android:layout_width="8dp" android:layout_height="match_parent" />
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@drawable/bg_progress_inactive" />
+            <View android:layout_width="8dp" android:layout_height="match_parent" />
+            <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@drawable/bg_progress_inactive" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvStepInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Step 1 of 5 • Basic Details"
+            android:textColor="@color/white"
+            android:alpha="0.8"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/layoutProgress"
+            app:layout_constraintTop_toBottomOf="@id/layoutProgress" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnContinue"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Full Name *" android:textColor="#4B5563" android:textSize="14sp" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="8dp" android:background="@drawable/bg_input_field" android:gravity="center_vertical" android:paddingHorizontal="16dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:alpha="0.4" android:src="@drawable/ic_person" />
+                <EditText android:id="@+id/etName" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:hint="Enter patient name" android:inputType="textPersonName" android:paddingStart="12dp" android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Added Email Field -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="Email *" android:textColor="#4B5563" android:textSize="14sp" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="8dp" android:background="@drawable/bg_input_field" android:gravity="center_vertical" android:paddingHorizontal="16dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:alpha="0.4" android:src="@drawable/ic_email" />
+                <EditText android:id="@+id/etEmail" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:hint="Enter patient email" android:inputType="textEmailAddress" android:paddingStart="12dp" android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Age *" android:textColor="#4B5563" android:textSize="14sp" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="8dp" android:background="@drawable/bg_input_field" android:gravity="center_vertical" android:paddingHorizontal="16dp">
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:alpha="0.4" android:src="@drawable/ic_calendar" />
+                        <EditText android:id="@+id/etAge" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:hint="Age" android:inputType="number" android:paddingStart="12dp" android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View android:layout_width="16dp" android:layout_height="0dp" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Gender *" android:textColor="#4B5563" android:textSize="14sp" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="8dp"
+                        app:boxBackgroundColor="@color/white" app:boxBackgroundMode="outline" app:boxCornerRadiusBottomEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusTopStart="12dp" app:boxStrokeColor="#E5E7EB" app:hintEnabled="false">
+                        <AutoCompleteTextView android:id="@+id/spinnerGender" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/bg_input_field" android:hint="Select" android:inputType="none" android:paddingStart="16dp" android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="Phone Number *" android:textColor="#4B5563" android:textSize="14sp" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="8dp" android:background="@drawable/bg_input_field" android:gravity="center_vertical" android:paddingHorizontal="16dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:alpha="0.4" android:src="@drawable/ic_phone" />
+                <EditText android:id="@+id/etPhone" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:hint="Enter phone number" android:inputType="phone" android:paddingStart="12dp" android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="Address" android:textColor="#4B5563" android:textSize="14sp" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="100dp" android:layout_marginTop="8dp" android:background="@drawable/bg_input_field" android:gravity="top" android:padding="16dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_marginTop="4dp" android:alpha="0.4" android:src="@drawable/ic_location" />
+                <EditText android:id="@+id/etAddress" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:gravity="top" android:hint="Enter address" android:inputType="textMultiLine" android:paddingStart="12dp" android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_margin="24dp"
+        android:enabled="false"
+        android:text="Continue to Vital Signs"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="32dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

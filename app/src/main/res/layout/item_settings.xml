@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="16dp">
+
+    <View
+        android:id="@+id/viewIconBg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/dot_white"
+        android:backgroundTint="#EFF6FF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivItemIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_person"
+        app:layout_constraintBottom_toBottomOf="@id/viewIconBg"
+        app:layout_constraintEnd_toEndOf="@id/viewIconBg"
+        app:layout_constraintStart_toStartOf="@id/viewIconBg"
+        app:layout_constraintTop_toTopOf="@id/viewIconBg"
+        app:tint="@color/blue_primary" />
+
+    <TextView
+        android:id="@+id/tvItemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="User Profile"
+        android:textColor="#111827"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/ivChevron"
+        app:layout_constraintStart_toEndOf="@id/viewIconBg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvItemSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="View and edit your information"
+        android:textColor="#6B7280"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/ivChevron"
+        app:layout_constraintStart_toStartOf="@id/tvItemTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvItemTitle" />
+
+    <ImageView
+        android:id="@+id/ivChevron"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_arrow_back"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#D1D5DB" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

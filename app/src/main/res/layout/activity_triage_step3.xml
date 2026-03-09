@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".TriageStep3Activity">
+
+    <!-- Blue Header Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_primary"
+        android:paddingTop="48dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Symptoms Checklist"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 5-segment Progress Bar -->
+        <LinearLayout
+            android:id="@+id/layoutProgress"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_progress_active" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_progress_active" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_progress_active" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_progress_inactive" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_progress_inactive" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvStepInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Step 3 of 5 • Symptoms"
+            android:textColor="@color/white"
+            android:alpha="0.8"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/layoutProgress"
+            app:layout_constraintTop_toBottomOf="@id/layoutProgress" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Form Section -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnContinue"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Chief Complaint Area -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chief Complaint *"
+                android:textColor="#4B5563"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_field"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_warning_grey" />
+
+                <EditText
+                    android:id="@+id/etComplaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="Describe the main reason for visit"
+                    android:inputType="textMultiLine"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Select All Present Symptoms (Optional)"
+                android:textColor="#4B5563"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutSymptomsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <!-- Red/Critical Symptoms -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomChestPain"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Chest Pain"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FEF2F2"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FCA5A5" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomShortnessOfBreath"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Shortness of Breath"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FEF2F2"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FCA5A5" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomSevereHeadache"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Severe Headache"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FEF2F2"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FCA5A5" />
+
+                <!-- Orange/Moderate Symptoms -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomAbdominalPain"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Abdominal Pain"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FFF7ED"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FDBA74" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomNausea"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Nausea/Vomiting"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FFF7ED"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FDBA74" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomFever"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Fever"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FFF7ED"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FDBA74" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomDizziness"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Dizziness"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FFF7ED"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FDBA74" />
+
+                <!-- Green/Minor Symptoms -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomCough"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Cough"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#F0FDF4"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#86EFAC" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomFatigue"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Fatigue"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#F0FDF4"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#86EFAC" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomRash"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Rash"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#F0FDF4"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#86EFAC" />
+
+                <!-- Red/Late Critical Symptoms -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomLoc"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Loss of Consciousness"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FEF2F2"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FCA5A5" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomConfusion"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Confusion/Disorientation"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FEF2F2"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FCA5A5" />
+
+                <!-- Trauma Section -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/symptomTrauma"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:checkable="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Trauma"
+                    android:textAllCaps="false"
+                    android:textColor="#111827"
+                    android:textAlignment="viewStart"
+                    android:paddingStart="24dp"
+                    app:backgroundTint="#FEF2F2"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#FCA5A5" />
+
+                <!-- Trauma Sub-options (initially hidden) -->
+                <LinearLayout
+                    android:id="@+id/layoutTraumaOptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Select Trauma Types"
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/traumaBlunt"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:checkable="true"
+                        android:text="Blunt Force Trauma"
+                        android:textAllCaps="false"
+                        android:textColor="#4B5563"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="16dp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="#E5E7EB" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/traumaPenetrating"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="4dp"
+                        android:checkable="true"
+                        android:text="Penetrating Trauma"
+                        android:textAllCaps="false"
+                        android:textColor="#4B5563"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="16dp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="#E5E7EB" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/traumaBurns"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="4dp"
+                        android:checkable="true"
+                        android:text="Burns"
+                        android:textAllCaps="false"
+                        android:textColor="#4B5563"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="16dp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="#E5E7EB" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/traumaPTSD"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="4dp"
+                        android:checkable="true"
+                        android:text="PTSD"
+                        android:textAllCaps="false"
+                        android:textColor="#4B5563"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="16dp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="#E5E7EB" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/traumaStress"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="4dp"
+                        android:checkable="true"
+                        android:text="Acute Stress"
+                        android:textAllCaps="false"
+                        android:textColor="#4B5563"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="16dp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="#E5E7EB" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_margin="24dp"
+        android:enabled="false"
+        android:text="Continue to Medical Imaging"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="32dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
