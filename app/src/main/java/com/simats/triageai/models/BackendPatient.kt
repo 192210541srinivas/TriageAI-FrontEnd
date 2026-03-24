@@ -74,10 +74,10 @@ data class BackendPatient(
     val medicalHistory: String?,
 
     @SerializedName("medications")
-    val medications: String?,
+    val medications: com.google.gson.JsonElement?,
 
     @SerializedName("allergies")
-    val allergies: String?,
+    val allergies: com.google.gson.JsonElement?,
 
     @SerializedName("doctor_id")
     val doctorId: Int?

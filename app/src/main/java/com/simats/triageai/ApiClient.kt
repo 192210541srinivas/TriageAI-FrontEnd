@@ -11,7 +11,7 @@ object ApiClient {
      *  Using IPv4 address for direct connection over Wi-Fi.
      *  Ensure your phone and laptop are on the same Wi-Fi network.
      */
-    const val BASE_URL = "http://10.98.156.166:8000/"
+    const val BASE_URL = "http://10.200.255.166:8000/"
 
     private val logger = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

@@ -75,11 +75,16 @@ class EditParamedicProfileActivity : AppCompatActivity() {
                         binding.etEmail.setText(profile.email)
                         binding.etPhone.setText(profile.phone)
                         
-                        profile.profilePhoto?.let { photoPath ->
+                        val photoPath = profile.profilePhoto ?: profile.photoUrl ?: profile.profilePhotoUrl ?:
+                                        profile.photo ?: profile.image ?: profile.profileImage ?: 
+                                        profile.avatar ?: profile.picture ?: profile.profilePicture ?:
+                                        profile.profilePhotoCamel ?: profile.photoUrlCamel
+
+                        if (!photoPath.isNullOrEmpty()) {
                             val fullUrl = if (photoPath.startsWith("http")) {
                                 photoPath
                             } else {
-                                ApiClient.BASE_URL.trimEnd('/') + photoPath
+                                ApiClient.BASE_URL.trimEnd('/') + "/" + photoPath.removePrefix("/")
                             }
                             
                             Glide.with(this@EditParamedicProfileActivity)

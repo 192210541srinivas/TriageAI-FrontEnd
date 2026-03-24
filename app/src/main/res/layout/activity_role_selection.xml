@@ -8,19 +8,44 @@
     android:fitsSystemWindows="true"
     tools:context=".RoleSelectionActivity">
 
-    <!-- Admin Role Button Top Right -->
+    <!-- Logos at top edge -->
+    <ImageView
+        android:id="@+id/ivSaveethaLogo1"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/saveetha1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivSaveethaLogo2"
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/saveetha2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Admin Role Button - Left of Saveetha2 logo -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
         app:cardBackgroundColor="@color/admin_icon_bg"
         app:cardCornerRadius="30dp"
         app:cardElevation="4dp"
         app:strokeWidth="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivSaveethaLogo2"
         app:layout_constraintTop_toTopOf="parent">
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -47,7 +72,8 @@
         android:id="@+id/selectRoleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="64dp"
+
         android:fontFamily="sans-serif-black"
         android:text="Select Your Role"
         android:textColor="@color/text_primary"
@@ -55,7 +81,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/cardAdmin" />
+
 
     <TextView
         android:id="@+id/selectRoleSubtitle"

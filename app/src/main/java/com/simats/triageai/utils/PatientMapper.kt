@@ -45,26 +45,22 @@ object PatientMapper {
             else -> emptyList()
         }
 
-        val medicationsList = if (!bp.medications.isNullOrBlank()) {
-            try {
-                val array = org.json.JSONArray(bp.medications)
-                List(array.length()) { array.getString(it) }
-            } catch (e: Exception) {
-                listOf(bp.medications!!)
+        val medicationsList = when {
+            bp.medications?.isJsonArray == true -> {
+                val array = bp.medications.asJsonArray
+                List(array.size()) { array.get(it).asString }
             }
-        } else {
-            emptyList()
+            bp.medications?.isJsonPrimitive == true -> listOf(bp.medications.asString)
+            else -> emptyList()
         }
 
-        val allergiesList = if (!bp.allergies.isNullOrBlank()) {
-            try {
-                val array = org.json.JSONArray(bp.allergies)
-                List(array.length()) { array.getString(it) }
-            } catch (e: Exception) {
-                listOf(bp.allergies!!)
+        val allergiesList = when {
+            bp.allergies?.isJsonArray == true -> {
+                val array = bp.allergies.asJsonArray
+                List(array.size()) { array.get(it).asString }
             }
-        } else {
-            emptyList()
+            bp.allergies?.isJsonPrimitive == true -> listOf(bp.allergies.asString)
+            else -> emptyList()
         }
 
         // Logic to parse symptoms and chief complaint should ideally be here too

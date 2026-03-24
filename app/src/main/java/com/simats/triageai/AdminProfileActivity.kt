@@ -104,10 +104,26 @@ class AdminProfileActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tvDetailOrg).text = profile.department ?: "Not provided"
         findViewById<TextView>(R.id.tvDetailMemberSince).text = profile.joinedDate ?: "Not available"
         
-        if (!profile.profilePhoto.isNullOrEmpty()) {
-            val fullUrl = if (profile.profilePhoto.startsWith("http")) profile.profilePhoto else ApiClient.BASE_URL + profile.profilePhoto.removePrefix("/")
-            Glide.with(this).load(fullUrl).placeholder(R.drawable.img_31).into(profileImageView)
+        val photoPath = profile.profilePhoto ?: profile.photoUrl ?: profile.profilePhotoUrl ?:
+                        profile.photo ?: profile.image ?: profile.profileImage ?: 
+                        profile.avatar ?: profile.picture ?: profile.profilePicture ?:
+                        profile.profilePhotoCamel ?: profile.photoUrlCamel
+        if (!photoPath.isNullOrEmpty()) {
+            val fullUrl = if (photoPath.startsWith("http")) {
+                photoPath
+            } else {
+                ApiClient.BASE_URL.trimEnd('/') + "/" + photoPath.removePrefix("/")
+            }
+            
+            Glide.with(this)
+                .load(fullUrl)
+                .placeholder(R.drawable.ic_person)
+                .error(R.drawable.ic_person)
+                .into(profileImageView)
+            
             profileImageView.imageTintList = null
+        } else {
+            profileImageView.setImageResource(R.drawable.ic_person)
         }
     }
 

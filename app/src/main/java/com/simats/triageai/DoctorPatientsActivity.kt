@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.simats.triageai.adapters.PatientAdapter
@@ -41,6 +44,13 @@ class DoctorPatientsActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("TriageAI", MODE_PRIVATE)
         val doctorId = prefs.getInt("user_id", -1)
 
+        Log.d("DoctorPatients", "Loading patients for doctor_id=$doctorId")
+
+        if (doctorId == -1) {
+            Toast.makeText(this, "Error: Doctor ID not found. Please log in again.", Toast.LENGTH_LONG).show()
+            return
+        }
+
         ApiClient.apiService.getMyPatients(doctorId)
             .enqueue(object : Callback<List<BackendPatient>> {
 
@@ -48,10 +58,12 @@ class DoctorPatientsActivity : AppCompatActivity() {
                     call: Call<List<BackendPatient>>,
                     response: Response<List<BackendPatient>>
                 ) {
+                    Log.d("DoctorPatients", "Response code: ${response.code()}")
 
                     if (response.isSuccessful && response.body() != null) {
 
                         val backendPatients = response.body()!!
+                        Log.d("DoctorPatients", "Received ${backendPatients.size} patients")
 
                         allPatients = backendPatients.map { bp ->
                             com.simats.triageai.utils.PatientMapper.mapToUiPatient(bp)
@@ -59,11 +71,28 @@ class DoctorPatientsActivity : AppCompatActivity() {
 
                         adapter.updateList(allPatients)
 
+                        if (allPatients.isEmpty()) {
+                            Toast.makeText(this@DoctorPatientsActivity, "No patients assigned to you yet.", Toast.LENGTH_SHORT).show()
+                        }
+
+                    } else {
+                        val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                        Log.e("DoctorPatients", "Error ${response.code()}: $errorBody")
+                        Toast.makeText(
+                            this@DoctorPatientsActivity,
+                            "Failed to load patients (${response.code()}): $errorBody",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<BackendPatient>>, t: Throwable) {
-                    t.printStackTrace()
+                    Log.e("DoctorPatients", "Network failure: ${t.message}", t)
+                    Toast.makeText(
+                        this@DoctorPatientsActivity,
+                        "Network error: ${t.message}\nCheck if the server is running at ${ApiClient.BASE_URL}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             })
     }

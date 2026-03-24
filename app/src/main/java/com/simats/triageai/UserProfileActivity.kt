@@ -2,6 +2,7 @@ package com.simats.triageai
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -72,19 +73,28 @@ class UserProfileActivity : AppCompatActivity() {
         binding.tvDepartment.text = profile.department ?: "N/A"
         binding.tvJoinedDate.text = profile.joinedDate ?: "N/A"
 
-        if (!profile.profilePhoto.isNullOrEmpty()) {
-            val photoUrl = if (profile.profilePhoto.startsWith("http")) {
-                profile.profilePhoto
-            } else {
-                ApiClient.BASE_URL.removeSuffix("/") + profile.profilePhoto
+        val photoPath = profile.profilePhoto ?: profile.photoUrl ?: profile.profilePhotoUrl ?:
+                        profile.photo ?: profile.image ?: profile.profileImage ?: 
+                        profile.avatar ?: profile.picture ?: profile.profilePicture ?:
+                        profile.profilePhotoCamel ?: profile.photoUrlCamel
+        if (!photoPath.isNullOrEmpty()) {
+            // Build absolute URL: handle both relative paths (/uploads/...) and full URLs
+            val photoUrl = when {
+                photoPath.startsWith("http") -> photoPath
+                photoPath.startsWith("/") -> ApiClient.BASE_URL.removeSuffix("/") + photoPath
+                else -> ApiClient.BASE_URL.removeSuffix("/") + "/" + photoPath
             }
-            
+            Log.d("ProfilePhoto", "Loading paramedic photo from: $photoUrl")
+
             Glide.with(this)
                 .load(photoUrl)
-                .placeholder(R.drawable.bg_nav_item_selected)
-                .error(R.drawable.bg_nav_item_selected)
+                .placeholder(R.drawable.ic_person)
+                .error(R.drawable.ic_person)
                 .circleCrop()
                 .into(binding.ivProfilePhoto)
+        } else {
+            Log.d("ProfilePhoto", "No profile photo URL returned from backend")
+            binding.ivProfilePhoto.setImageResource(R.drawable.ic_person)
         }
     }
 

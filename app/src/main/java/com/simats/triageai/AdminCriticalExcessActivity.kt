@@ -47,10 +47,6 @@ class AdminCriticalExcessActivity : AppCompatActivity() {
         }
         rvCritical.adapter = criticalAdapter
 
-        val rvDoctors = findViewById<RecyclerView>(R.id.rvAvailableDoctors)
-        rvDoctors.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        doctorsAdapter = AvailableDoctorsAdapter(availableDoctors)
-        rvDoctors.adapter = doctorsAdapter
     }
 
     private fun loadData() {
@@ -72,14 +68,7 @@ class AdminCriticalExcessActivity : AppCompatActivity() {
                 }
 
                 // Load internal doctors
-                val doctorResponse = ApiClient.apiService.getInternalDoctors(adminId)
-                if (doctorResponse.isSuccessful) {
-                    doctorResponse.body()?.let {
-                        availableDoctors.clear()
-                        availableDoctors.addAll(it)
-                        doctorsAdapter.notifyDataSetChanged()
-                    }
-                }
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }

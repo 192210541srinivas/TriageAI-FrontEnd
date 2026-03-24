@@ -15,5 +15,25 @@ data class UserProfileResponse(
     val joinedDate: String?,
     @SerializedName("profile_photo")
     val profilePhoto: String?,
+    @SerializedName("photo_url")
+    val photoUrl: String?,
+    @SerializedName("profile_photo_url")
+    val profilePhotoUrl: String?,
+    @SerializedName("photo")
+    val photo: String?,
+    @SerializedName("image")
+    val image: String?,
+    @SerializedName("profile_image")
+    val profileImage: String?,
+    @SerializedName("avatar")
+    val avatar: String?,
+    @SerializedName("picture")
+    val picture: String?,
+    @SerializedName("profile_picture")
+    val profilePicture: String?,
+    @SerializedName("profilePhoto")
+    val profilePhotoCamel: String?,
+    @SerializedName("photoUrl")
+    val photoUrlCamel: String?,
     val address: String?
 )
