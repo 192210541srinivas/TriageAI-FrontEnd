@@ -47,6 +47,13 @@ class ChangePasswordActivity : AppCompatActivity() {
             return
         }
 
+        // Validate password strength
+        val validationResult = com.simats.triageai.utils.ValidationUtils.validatePassword(newPassword)
+        if (validationResult is com.simats.triageai.utils.ValidationResult.Invalid) {
+            Toast.makeText(this, validationResult.message, Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val prefs = getSharedPreferences("TriageAI", MODE_PRIVATE)
         val userId = prefs.getInt("user_id", -1)
 

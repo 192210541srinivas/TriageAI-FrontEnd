@@ -88,7 +88,7 @@ object PatientMapper {
             spo2 = spo2Display,
             temp = tempDisplay,
             respRate = respRateDisplay,
-            riskScore = bp.aiRiskScore ?: 0,
+            riskScore = bp.aiRiskScore?.toInt() ?: 0,
             priority = when (bp.caseType?.uppercase()) {
                 "CRITICAL" -> Priority.CRITICAL
                 "URGENT" -> Priority.URGENT
@@ -102,7 +102,9 @@ object PatientMapper {
             allergies = allergiesList,
             paramedicId = bp.paramedicId?.toString() ?: "",
             paramedicName = bp.paramedicName ?: "",
-            doctorId = bp.doctorId?.toString() ?: ""
+            doctorId = bp.doctorId?.toString() ?: "",
+            phone = bp.phone ?: "",
+            address = bp.address ?: ""
         )
     }
 }

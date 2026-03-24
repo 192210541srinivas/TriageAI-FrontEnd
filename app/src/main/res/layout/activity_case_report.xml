@@ -53,7 +53,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btnExportReport"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
         <LinearLayout
@@ -85,7 +84,9 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <View android:layout_width="match_parent" android:layout_height="12dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp" />
 
                     <!-- Grid for Summary (simplified with LinearLayers) -->
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,9 +110,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Jan 22, 2026\n14:25"
+                            android:textAlignment="viewEnd"
                             android:textColor="#111827"
                             android:textSize="14sp"
-                            android:textAlignment="viewEnd"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -229,30 +230,86 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_brain" app:tint="#EF4444" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="AI Analysis" android:textColor="#111827" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_brain"
+                            app:tint="#EF4444" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="AI Analysis"
+                            android:textColor="#111827"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="16dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Chief Complaint:" android:textColor="#111827" android:textStyle="bold" />
-                    <TextView android:id="@+id/tvChiefComplaint" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Chest pain with shortness of breath" android:textColor="#4B5563" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chief Complaint:"
+                        android:textColor="#111827"
+                        android:textStyle="bold" />
 
-                    <View android:layout_width="match_parent" android:layout_height="12dp" />
+                    <TextView
+                        android:id="@+id/tvChiefComplaint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chest pain with shortness of breath"
+                        android:textColor="#4B5563" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Key Symptoms:" android:textColor="#111827" android:textStyle="bold" />
-                    <TextView android:id="@+id/tvKeySymptoms" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Severe chest pain, difficulty breathing, sweating" android:textColor="#4B5563" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp" />
 
-                    <View android:layout_width="match_parent" android:layout_height="12dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Key Symptoms:"
+                        android:textColor="#111827"
+                        android:textStyle="bold" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Risk Factors:" android:textColor="#111827" android:textStyle="bold" />
-                    <TextView android:id="@+id/tvRiskFactors" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Hypertension, diabetes, elevated vitals" android:textColor="#4B5563" />
+                    <TextView
+                        android:id="@+id/tvKeySymptoms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Severe chest pain, difficulty breathing, sweating"
+                        android:textColor="#4B5563" />
 
-                    <View android:layout_width="match_parent" android:layout_height="12dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI Recommendation:" android:textColor="#111827" android:textStyle="bold" />
-                    <TextView android:id="@+id/tvAiRecommendation" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Immediate cardiac evaluation" android:textColor="#4B5563" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Risk Factors:"
+                        android:textColor="#111827"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvRiskFactors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hypertension, diabetes, elevated vitals"
+                        android:textColor="#4B5563" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp" />
+
+
 
                 </LinearLayout>
 
@@ -273,72 +330,160 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_pulse_blue" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Vital Signs" android:textColor="#111827" android:textSize="18sp" android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="16dp" />
-
-                    <GridLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:columnCount="2"
-                        android:rowCount="2">
+                        android:gravity="center_vertical">
 
-                        <!-- BP -->
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_pulse_blue" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/bg_vital_item"
-                            android:orientation="vertical"
-                            android:padding="12dp">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BP" android:textColor="#6B7280" android:textSize="12sp" />
-                            <TextView android:id="@+id/tvBp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="180/110 mmHg" android:textColor="#111827" android:textSize="16sp" android:textStyle="bold" />
+                            android:layout_marginStart="8dp"
+                            android:text="Vital Signs"
+                            android:textColor="#111827"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Row 1: BP & HR -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- BP -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/bg_vital_item"
+                                android:orientation="vertical"
+                                android:padding="12dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="BP"
+                                    android:textColor="#6B7280"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvBp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="#111827"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- HR -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_vital_item"
+                                android:orientation="vertical"
+                                android:padding="12dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="HR"
+                                    android:textColor="#6B7280"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvHr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="#111827"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
 
-                        <!-- HR -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp" />
+
+                        <!-- Row 2: SpO2 & Temp -->
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:background="@drawable/bg_vital_item"
-                            android:orientation="vertical"
-                            android:padding="12dp">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HR" android:textColor="#6B7280" android:textSize="12sp" />
-                            <TextView android:id="@+id/tvHr" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="125 bpm" android:textColor="#111827" android:textSize="16sp" android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <!-- SpO2 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/bg_vital_item"
+                                android:orientation="vertical"
+                                android:padding="12dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="SpO2"
+                                    android:textColor="#6B7280"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvSpo2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="#111827"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <!-- Temp -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_vital_item"
+                                android:orientation="vertical"
+                                android:padding="12dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Temp"
+                                    android:textColor="#6B7280"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvTemp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="#111827"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
 
-                        <View android:layout_width="match_parent" android:layout_height="12dp" />
-
-                        <!-- SpO2 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="8dp"
-                            android:background="@drawable/bg_vital_item"
-                            android:orientation="vertical"
-                            android:padding="12dp">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SpO2" android:textColor="#6B7280" android:textSize="12sp" />
-                            <TextView android:id="@+id/tvSpo2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="89%" android:textColor="#111827" android:textSize="16sp" android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <!-- Temp -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:background="@drawable/bg_vital_item"
-                            android:orientation="vertical"
-                            android:padding="12dp">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Temp" android:textColor="#6B7280" android:textSize="12sp" />
-                            <TextView android:id="@+id/tvTemp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="37.2°C" android:textColor="#111827" android:textSize="16sp" android:textStyle="bold" />
-                        </LinearLayout>
-
-                    </GridLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -358,20 +503,38 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_history" app:tint="#7C3AED" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Treatment Summary" android:textColor="#111827" android:textSize="18sp" android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_history"
+                            app:tint="#7C3AED" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Treatment Summary"
+                            android:textColor="#111827"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="16dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
 
                     <TextView
                         android:id="@+id/tvTreatmentSummary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:lineSpacingExtra="4dp"
                         android:text="Patient was immediately assessed and stabilized. ECG performed showing signs of acute cardiac event. Cardiac enzymes elevated. Patient admitted to cardiac care unit for further monitoring and treatment. Responded well to initial interventions."
-                        android:textColor="#4B5563"
-                        android:lineSpacingExtra="4dp" />
+                        android:textColor="#4B5563" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -380,17 +543,5 @@
     </androidx.core.widget.NestedScrollView>
 
     <!-- Sticky Footer Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnExportReport"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_margin="16dp"
-        android:backgroundTint="#2563EB"
-        android:text="Export Full Report"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

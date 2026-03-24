@@ -95,11 +95,11 @@
                     android:id="@+id/tvSummaryExplanation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:text="The AI model analyzed this case based on the provided clinical data."
-                    android:textColor="#991B1B"
-                    android:textSize="15sp"
-                    android:lineSpacingExtra="4dp" />
+                    android:padding="16dp"
+                    android:textColor="#4B5563"
+                    android:textSize="14sp"
+                    android:lineSpacingMultiplier="1.2"
+                    tools:text="The AI model classified this case as CRITICAL based on the following reasoning factors:" />
             </androidx.cardview.widget.CardView>
 
             <TextView

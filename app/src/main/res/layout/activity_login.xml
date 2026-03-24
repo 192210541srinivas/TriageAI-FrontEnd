@@ -188,29 +188,7 @@
         app:cornerRadius="30dp"
         app:layout_constraintTop_toBottomOf="@+id/fieldsContainer" />
 
-    <TextView
-        android:id="@+id/orSignInWith"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Or sign in with"
-        android:textColor="@color/text_secondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
-
-    <TextView
-        android:id="@+id/btnFingerprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Use Fingerprint"
-        android:textColor="@color/blue_primary"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orSignInWith" />
-
+    
     <ProgressBar
         android:id="@+id/loadingIndicator"
         android:layout_width="wrap_content"

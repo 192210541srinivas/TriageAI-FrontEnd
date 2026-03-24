@@ -41,7 +41,7 @@ data class BackendPatient(
     val respiratoryRate: Int?,
 
     @SerializedName("ai_risk_score")
-    val aiRiskScore: Int?,
+    val aiRiskScore: Double?,
 
     @SerializedName("case_type")
     val caseType: String?,

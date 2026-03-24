@@ -51,16 +51,6 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivNotifications"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/img_11"
-                    android:padding="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Add New Staff Button -->
@@ -81,11 +71,20 @@
                     android:orientation="horizontal"
                     android:paddingHorizontal="20dp">
 
-                    <View
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/bg_check_circle"
-                        android:backgroundTint="@color/white" />
+                        app:cardCornerRadius="50dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp"
+                        android:backgroundTint="@android:color/transparent">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/add"
+                            />
+                    </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -132,8 +131,8 @@
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/bg_check_circle"
-                        android:backgroundTint="@color/white" />
+                        android:background="@drawable/img_34"
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -168,7 +167,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/img_14"
-                        android:backgroundTint="@color/white" />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -480,8 +479,8 @@
         app:itemTextColor="@color/nav_item_colors"
         app:labelVisibilityMode="labeled"
         app:itemRippleColor="@android:color/transparent"
-        app:itemPaddingTop="10dp"
-        app:itemPaddingBottom="10dp"
+        app:itemPaddingTop="5dp"
+        app:itemPaddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -42,7 +42,8 @@ class AdminCriticalExcessActivity : AppCompatActivity() {
         rvCritical.layoutManager = LinearLayoutManager(this)
         criticalAdapter = CriticalQueueAdapter(criticalPatients) { patient ->
             val intent = Intent(this, AdminCriticalCaseProfileActivity::class.java)
-            intent.putExtra("PATIENT_ID", patient.id.toInt())
+            intent.putExtra("PATIENT_ID", patient.id.toIntOrNull() ?: -1)
+            intent.putExtra("patient", patient as android.os.Parcelable)
             startActivity(intent)
         }
         rvCritical.adapter = criticalAdapter

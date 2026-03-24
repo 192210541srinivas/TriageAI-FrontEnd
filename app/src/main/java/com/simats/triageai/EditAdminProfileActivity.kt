@@ -115,6 +115,13 @@ class EditAdminProfileActivity : AppCompatActivity() {
             return
         }
 
+        // Validate password strength
+        val validationResult = com.simats.triageai.utils.ValidationUtils.validatePassword(new)
+        if (validationResult is com.simats.triageai.utils.ValidationResult.Invalid) {
+            Toast.makeText(this, validationResult.message, Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val passwordRequest = ChangePasswordRequest(oldPassword = old, newPassword = new, confirmPassword = confirm)
         ApiClient.apiService.changePassword(adminId, passwordRequest).enqueue(object : Callback<GenericResponse> {
             override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {

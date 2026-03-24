@@ -59,8 +59,6 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         binding.navDashboard.setOnClickListener {
-            val intent = Intent(this, ParamedicDashboardActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

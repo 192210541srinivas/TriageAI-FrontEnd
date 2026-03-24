@@ -113,6 +113,7 @@ class LoginActivity : AppCompatActivity() {
                                 .edit()
                                 .putString("role", receivedRole)
                                 .putInt("user_id", body.user?.id ?: -1)
+                                .putString("status", body.user?.status ?: "ACTIVE")
                                 .apply()
 
                             when (receivedRole) {

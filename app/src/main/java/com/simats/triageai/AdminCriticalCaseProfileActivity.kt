@@ -1,5 +1,6 @@
 package com.simats.triageai
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,10 +39,18 @@ class AdminCriticalCaseProfileActivity : AppCompatActivity() {
         val progress = findViewById<View>(R.id.progressSearch)
         val layoutDoctors = findViewById<View>(R.id.layoutDoctorsNearby)
 
+        val patient = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("patient", com.simats.triageai.models.Patient::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<com.simats.triageai.models.Patient>("patient")
+        }
         val patientId = intent.getIntExtra("PATIENT_ID", -1)
         val adminId = getSharedPreferences("TriageAI", MODE_PRIVATE).getInt("user_id", -1)
 
-        if (patientId != -1) {
+        if (patient != null) {
+            bindPatientData(patient)
+        } else if (patientId != -1) {
             loadPatientDetails(patientId)
         }
 
@@ -60,7 +69,8 @@ class AdminCriticalCaseProfileActivity : AppCompatActivity() {
             try {
                 val response = ApiClient.apiService.getPatientProfile(patientId)
                 if (response.isSuccessful && response.body() != null) {
-                    bindPatientData(response.body()!!)
+                    val p = com.simats.triageai.utils.PatientMapper.mapToUiPatient(response.body()!!)
+                    bindPatientData(p)
                 } else {
                     Toast.makeText(this@AdminCriticalCaseProfileActivity, "Failed to load patient details", Toast.LENGTH_SHORT).show()
                 }
@@ -70,9 +80,7 @@ class AdminCriticalCaseProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindPatientData(bp: BackendPatient) {
-        val patient = com.simats.triageai.utils.PatientMapper.mapToUiPatient(bp)
-        
+    private fun bindPatientData(patient: com.simats.triageai.models.Patient) {
         findViewById<TextView>(R.id.tvPatientName).text = patient.name
         findViewById<TextView>(R.id.tvPatientDemographics).text = "${patient.age} years • ${patient.gender} • ID: P${patient.id}"
         
@@ -98,7 +106,7 @@ class AdminCriticalCaseProfileActivity : AppCompatActivity() {
             patient.allergies.joinToString(", ") else "None recorded"
         
         // Contact
-        findViewById<TextView>(R.id.tvContactInfo).text = "Phone: ${bp.phone ?: "-"}\nAddress: ${bp.address ?: "-"}"
+        findViewById<TextView>(R.id.tvContactInfo).text = "Phone: ${if (patient.phone.isNotBlank()) patient.phone else "-"}\nAddress: ${if (patient.address.isNotBlank()) patient.address else "-"}"
         
         // Paramedic
         findViewById<TextView>(R.id.tvParamedicName).text = patient.paramedicName.ifBlank { "Unknown" }

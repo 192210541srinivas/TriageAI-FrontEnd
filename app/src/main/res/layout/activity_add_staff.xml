@@ -66,6 +66,7 @@
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
+                    android:id="@+id/layoutUploadPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -73,12 +74,13 @@
                     android:padding="16dp">
 
                     <ImageView
+                        android:id="@+id/ivPhotoPreview"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/bg_input_field"
-                        android:padding="16dp"
-                        android:src="@drawable/ic_person"
-                        app:tint="@color/text_secondary" />
+                        android:background="@drawable/doctor_card_bg"
+                        android:padding="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_person" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -144,8 +146,7 @@
                             android:id="@+id/ivDoctorIcon"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_doctor"
-                            app:tint="@color/doctor_icon_bg" />
+                            android:src="@drawable/ic_doctor" />
 
                         <TextView
                             android:id="@+id/tvDoctor"
@@ -181,8 +182,7 @@
                             android:id="@+id/ivParamedicIcon"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_heart_red"
-                            app:tint="@color/text_secondary" />
+                            android:src="@drawable/img_36" />
 
                         <TextView
                             android:id="@+id/tvParamedic"
@@ -203,17 +203,31 @@
                 android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etFullName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_person"
-                android:drawablePadding="12dp"
-                android:hint="Enter full name"
-                android:inputType="textPersonName"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/text_secondary" />
+
+                <EditText
+                    android:id="@+id/etFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Enter full name"
+                    android:inputType="textPersonName"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -223,17 +237,31 @@
                 android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etEmail"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_email"
-                android:drawablePadding="12dp"
-                android:hint="email@example.com"
-                android:inputType="textEmailAddress"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_email"
+                    app:tint="@color/text_secondary" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="email@example.com"
+                    android:inputType="textEmailAddress"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -243,17 +271,31 @@
                 android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etPhone"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_phone"
-                android:drawablePadding="12dp"
-                android:hint="+1 (555) 000-0000"
-                android:inputType="phone"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_phone"
+                    app:tint="@color/text_secondary" />
+
+                <EditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="+1 (555) 000-0000"
+                    android:inputType="phone"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -263,17 +305,31 @@
                 android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etAddress"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_location"
-                android:drawablePadding="12dp"
-                android:hint="Enter full address"
-                android:inputType="textPostalAddress"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_location"
+                    app:tint="@color/text_secondary" />
+
+                <EditText
+                    android:id="@+id/etAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Enter full address"
+                    android:inputType="textPostalAddress"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -283,29 +339,75 @@
                 android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etPassword"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_lock"
-                android:drawablePadding="12dp"
-                android:hint="Create a password"
-                android:inputType="textPassword"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-            <EditText
-                android:id="@+id/etConfirmPassword"
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_lock_vec"
+                    app:tint="@color/text_secondary" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:hintEnabled="false"
+                    app:boxBackgroundMode="none"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Create a password"
+                        android:inputType="textPassword"
+                        android:padding="12dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_lock"
-                android:drawablePadding="12dp"
-                android:hint="Confirm password"
-                android:inputType="textPassword"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_lock_vec"
+                    app:tint="@color/text_secondary" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:hintEnabled="false"
+                    app:boxBackgroundMode="none"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/etConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Confirm password"
+                        android:inputType="textPassword"
+                        android:padding="12dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -324,17 +426,31 @@
                 android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etLicenseNumber"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_doc"
-                android:drawablePadding="12dp"
-                android:hint="Enter license number"
-                android:inputType="text"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_doc_vec"
+                    app:tint="@color/text_secondary" />
+
+                <EditText
+                    android:id="@+id/etLicenseNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Enter license number"
+                    android:inputType="text"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvDepartmentLabel"
@@ -345,17 +461,32 @@
                 android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etDepartment"
+            <LinearLayout
+                android:id="@+id/layoutDepartment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input_field"
-                android:drawableStart="@drawable/ic_lock"
-                android:drawablePadding="12dp"
-                android:hint="e.g., Emergency, Cardiology, ICU"
-                android:inputType="text"
-                android:padding="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_doc_vec"
+                    app:tint="@color/text_secondary" />
+
+                <EditText
+                    android:id="@+id/etDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="e.g., Emergency, Cardiology, ICU"
+                    android:inputType="text"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnCreateAccount"

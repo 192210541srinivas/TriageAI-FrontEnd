@@ -9,6 +9,8 @@ import com.simats.triageai.models.ParamedicWaitingCountResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.activity.OnBackPressedCallback
+import com.simats.triageai.utils.NavigationUtils
 
 class ParamedicDashboardActivity : AppCompatActivity() {
 
@@ -26,6 +28,7 @@ class ParamedicDashboardActivity : AppCompatActivity() {
         paramedicId = prefs.getInt("user_id", -1)
 
         setupDashboard()
+        setupBackPress()
         loadWaitingPatientCounts()
     }
 
@@ -45,12 +48,10 @@ class ParamedicDashboardActivity : AppCompatActivity() {
 
         binding.navPatients.setOnClickListener {
             startActivity(Intent(this, PatientsActivity::class.java))
-            finish()
         }
 
         binding.navSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
-            finish()
         }
 
         binding.ivNotifications.setOnClickListener {
@@ -87,5 +88,13 @@ class ParamedicDashboardActivity : AppCompatActivity() {
 
     private fun startNewTriage() {
         startActivity(Intent(this, TriageStep1Activity::class.java))
+    }
+
+    private fun setupBackPress() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavigationUtils.showExitConfirmationDialog(this@ParamedicDashboardActivity)
+            }
+        })
     }
 }

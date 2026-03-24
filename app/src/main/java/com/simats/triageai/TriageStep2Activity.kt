@@ -117,17 +117,63 @@ class TriageStep2Activity : AppCompatActivity() {
         }
 
         binding.btnContinue.setOnClickListener {
+            val systolicStr = binding.etSystolic.text.toString().trim()
+            val diastolicStr = binding.etDiastolic.text.toString().trim()
+            val heartRateStr = binding.etHeartRate.text.toString().trim()
+            val tempStr = binding.etTemperature.text.toString().trim()
+            val spo2Str = binding.etSpo2.text.toString().trim()
+            val respiratoryRateStr = binding.etRespiratoryRate.text.toString().trim()
+
+            val sysVal = systolicStr.toFloatOrNull() ?: 0f
+            val diaVal = diastolicStr.toFloatOrNull() ?: 0f
+            val hrVal = heartRateStr.toFloatOrNull() ?: 0f
+            val tempVal = tempStr.toFloatOrNull() ?: 0f
+            val spo2Val = spo2Str.toFloatOrNull() ?: 0f
+            val rrVal = respiratoryRateStr.toFloatOrNull() ?: 0f
+
+            val vSys = com.simats.triageai.utils.ValidationUtils.validateVitalRange("SYSTOLIC", sysVal)
+            val vDia = com.simats.triageai.utils.ValidationUtils.validateVitalRange("DIASTOLIC", diaVal)
+            val vHr = com.simats.triageai.utils.ValidationUtils.validateVitalRange("HR", hrVal)
+            val vTemp = com.simats.triageai.utils.ValidationUtils.validateVitalRange("TEMP", tempVal)
+            val vSpo2 = com.simats.triageai.utils.ValidationUtils.validateVitalRange("SPO2", spo2Val)
+            val vRr = com.simats.triageai.utils.ValidationUtils.validateVitalRange("RR", rrVal)
+
+            if (vSys is com.simats.triageai.utils.ValidationResult.Invalid) {
+                binding.etSystolic.error = vSys.message
+                return@setOnClickListener
+            }
+            if (vDia is com.simats.triageai.utils.ValidationResult.Invalid) {
+                binding.etDiastolic.error = vDia.message
+                return@setOnClickListener
+            }
+            if (vHr is com.simats.triageai.utils.ValidationResult.Invalid) {
+                binding.etHeartRate.error = vHr.message
+                return@setOnClickListener
+            }
+            if (vTemp is com.simats.triageai.utils.ValidationResult.Invalid) {
+                binding.etTemperature.error = vTemp.message
+                return@setOnClickListener
+            }
+            if (vSpo2 is com.simats.triageai.utils.ValidationResult.Invalid) {
+                binding.etSpo2.error = vSpo2.message
+                return@setOnClickListener
+            }
+            if (vRr is com.simats.triageai.utils.ValidationResult.Invalid) {
+                binding.etRespiratoryRate.error = vRr.message
+                return@setOnClickListener
+            }
+
             val intent = Intent(this, TriageStep3Activity::class.java)
             // Pass forward Step 1 data
             intent.putExtras(this.intent)
             
             // Add Step 2 data
-            intent.putExtra("SYSTOLIC", binding.etSystolic.text.toString().toInt())
-            intent.putExtra("DIASTOLIC", binding.etDiastolic.text.toString().toInt())
-            intent.putExtra("HEART_RATE", binding.etHeartRate.text.toString().toInt())
-            intent.putExtra("TEMPERATURE", binding.etTemperature.text.toString().toFloat())
-            intent.putExtra("SPO2", binding.etSpo2.text.toString().toInt())
-            intent.putExtra("RESPIRATORY_RATE", binding.etRespiratoryRate.text.toString().toInt())
+            intent.putExtra("SYSTOLIC", sysVal.toInt())
+            intent.putExtra("DIASTOLIC", diaVal.toInt())
+            intent.putExtra("HEART_RATE", hrVal.toInt())
+            intent.putExtra("TEMPERATURE", tempVal)
+            intent.putExtra("SPO2", spo2Val.toInt())
+            intent.putExtra("RESPIRATORY_RATE", rrVal.toInt())
             
             val avpu = when (binding.toggleGroupAvpu.checkedButtonId) {
                 R.id.btnAlert -> "Alert"

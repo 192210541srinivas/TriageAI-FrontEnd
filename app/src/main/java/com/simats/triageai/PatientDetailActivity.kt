@@ -3,6 +3,7 @@ package com.simats.triageai
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,12 @@ class PatientDetailActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        patient = intent.getParcelableExtra("patient", Patient::class.java)
+        patient = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("patient", Patient::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Patient>("patient")
+        }
         if (patient == null) {
             Toast.makeText(this, "No patient data available", Toast.LENGTH_SHORT).show()
             finish()

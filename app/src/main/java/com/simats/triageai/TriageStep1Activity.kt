@@ -67,13 +67,36 @@ class TriageStep1Activity : AppCompatActivity() {
         }
 
         binding.btnContinue.setOnClickListener {
+            val name = binding.etName.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            val phone = binding.etPhone.text.toString().trim()
+            val address = binding.etAddress.text.toString().trim()
+            val ageStr = binding.etAge.text.toString().trim()
+            val age = ageStr.toIntOrNull() ?: 0
+            val gender = binding.spinnerGender.text.toString().trim()
+
+            if (!com.simats.triageai.utils.ValidationUtils.isValidName(name)) {
+                binding.etName.error = "Name must contain only alphabets"
+                return@setOnClickListener
+            }
+
+            if (!com.simats.triageai.utils.ValidationUtils.isValidEmail(email)) {
+                binding.etEmail.error = "Please enter a valid email address"
+                return@setOnClickListener
+            }
+
+            if (!com.simats.triageai.utils.ValidationUtils.isValidPhone(phone)) {
+                binding.etPhone.error = "Please enter a valid 10-digit phone number"
+                return@setOnClickListener
+            }
+
             val intent = Intent(this, TriageStep2Activity::class.java).apply {
-                putExtra("NAME", binding.etName.text.toString().trim())
-                putExtra("EMAIL", binding.etEmail.text.toString().trim())
-                putExtra("AGE", binding.etAge.text.toString().trim().toIntOrNull() ?: 0)
-                putExtra("GENDER", binding.spinnerGender.text.toString().trim())
-                putExtra("PHONE", binding.etPhone.text.toString().trim())
-                putExtra("ADDRESS", binding.etAddress.text.toString().trim())
+                putExtra("NAME", name)
+                putExtra("EMAIL", email)
+                putExtra("AGE", age)
+                putExtra("GENDER", gender)
+                putExtra("PHONE", phone)
+                putExtra("ADDRESS", address)
             }
             startActivity(intent)
         }

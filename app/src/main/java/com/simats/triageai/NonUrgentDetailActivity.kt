@@ -1,6 +1,7 @@
 package com.simats.triageai
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,12 @@ class NonUrgentDetailActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val patient = intent.getParcelableExtra<Patient>("patient")
+        val patient = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("patient", Patient::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Patient>("patient")
+        }
         if (patient == null) {
             Toast.makeText(this, "Patient data not found", Toast.LENGTH_SHORT).show()
             finish()

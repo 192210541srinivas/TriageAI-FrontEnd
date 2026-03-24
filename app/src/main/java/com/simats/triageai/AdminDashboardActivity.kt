@@ -11,6 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
+import androidx.activity.OnBackPressedCallback
+import android.os.Build
+import com.simats.triageai.utils.NavigationUtils
 
 class AdminDashboardActivity : AppCompatActivity() {
 
@@ -21,6 +24,7 @@ class AdminDashboardActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setupNavigation()
+        setupBackPress()
 
         findViewById<MaterialCardView>(R.id.btnAddStaff).setOnClickListener {
             startActivity(Intent(this, AddStaffActivity::class.java))
@@ -52,8 +56,12 @@ class AdminDashboardActivity : AppCompatActivity() {
                 R.id.nav_admin_dashboard -> true
                 R.id.nav_admin_profile -> {
                     startActivity(Intent(this, AdminProfileActivity::class.java))
-                    overridePendingTransition(0, 0)
-                    finish()
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        overridePendingTransition(0, 0)
+                    }
                     true
                 }
                 else -> false
@@ -88,5 +96,13 @@ class AdminDashboardActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadStats()
+    }
+
+    private fun setupBackPress() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavigationUtils.showExitConfirmationDialog(this@AdminDashboardActivity)
+            }
+        })
     }
 }

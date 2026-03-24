@@ -18,6 +18,8 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import androidx.activity.OnBackPressedCallback
+import com.simats.triageai.utils.NavigationUtils
 
 class DoctorDashboardActivity : AppCompatActivity() {
 
@@ -39,6 +41,7 @@ class DoctorDashboardActivity : AppCompatActivity() {
         setupNavigation()
         loadDashboardCounts()
         setupStatusToggle()
+        setupBackPress()
         // setupMockNotification() // Removed mock
         
         // Start real-time notification polling
@@ -89,7 +92,7 @@ class DoctorDashboardActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
-                }
+                 }
             }
         }
     }
@@ -200,7 +203,12 @@ class DoctorDashboardActivity : AppCompatActivity() {
                 try {
                     val response = ApiClient.apiService.toggleDoctorStatus(adminId)
                     if (response.isSuccessful && response.body() != null) {
-                        isDoctorActive = response.body()!!.newStatus == "ACTIVE"
+                        val newStatus = response.body()!!.newStatus
+                        isDoctorActive = newStatus == "ACTIVE"
+                        getSharedPreferences("TriageAI", MODE_PRIVATE)
+                            .edit()
+                            .putString("status", newStatus)
+                            .apply()
                         updateStatusUI(animate = true)
                     } else {
                         android.widget.Toast.makeText(this@DoctorDashboardActivity, "Failed to update status", android.widget.Toast.LENGTH_SHORT).show()
@@ -253,8 +261,11 @@ class DoctorDashboardActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("TriageAI", MODE_PRIVATE)
         adminId = prefs.getInt("user_id", 1)
         val role = prefs.getString("role", "Doctor")
+        val status = prefs.getString("status", "ACTIVE")
+        isDoctorActive = status == "ACTIVE"
         val prettyRole = role?.replaceFirstChar { it.uppercase() } ?: ""
         binding.tvSubtitle.text = "Welcome, $prettyRole"
+        updateStatusUI(animate = false)
     }
 
     // ---------------- LOAD COUNTS FROM API ----------------
@@ -308,18 +319,23 @@ class DoctorDashboardActivity : AppCompatActivity() {
         }
         binding.navPatients.setOnClickListener {
             startActivity(Intent(this, DoctorPatientsActivity::class.java))
-            finish()
         }
         binding.ivNotifications.setOnClickListener {
             startActivity(Intent(this, DoctorNotificationCenterActivity::class.java))
         }
         binding.navHistory.setOnClickListener {
             startActivity(Intent(this, DoctorHistoryNewActivity::class.java))
-            finish()
         }
         binding.navSettings.setOnClickListener {
             startActivity(Intent(this, DoctorSettingsActivity::class.java))
-            finish()
         }
+    }
+
+    private fun setupBackPress() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavigationUtils.showExitConfirmationDialog(this@DoctorDashboardActivity)
+            }
+        })
     }
 }

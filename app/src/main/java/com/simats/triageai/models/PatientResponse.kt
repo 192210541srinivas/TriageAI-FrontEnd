@@ -6,15 +6,15 @@ data class PatientResponse(
     @SerializedName("status")
     val status: String,
     @SerializedName("patient_id")
-    val patientId: Int?,
+    val patientId: com.google.gson.JsonElement?,
     @SerializedName("case_type")
     val caseType: String?,
     @SerializedName("risk_score")
-    val riskScore: Int?,
+    val riskScore: com.google.gson.JsonElement?,
     @SerializedName("probabilities")
-    val probabilities: Probabilities?,
+    val probabilities: com.google.gson.JsonElement?,
     @SerializedName("explanation")
-    val explanation: List<String>?,
+    val explanation: com.google.gson.JsonElement?,
     @SerializedName("detail")
     val detail: String?
 )

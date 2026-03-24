@@ -1,5 +1,6 @@
 package com.simats.triageai
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,12 @@ class MedicationNotesActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        patient = intent.getParcelableExtra("patient")
+        patient = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("patient", Patient::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Patient>("patient")
+        }
         
         binding.btnBack.setOnClickListener { finish() }
 

@@ -9,6 +9,7 @@ import com.simats.triageai.databinding.ActivityAiProcessingBinding
 import com.simats.triageai.models.PatientRequest
 import com.simats.triageai.models.PatientResponse
 import kotlinx.coroutines.launch
+import android.os.Build
 
 class AIProcessingActivity : AppCompatActivity() {
 
@@ -131,16 +132,68 @@ class AIProcessingActivity : AppCompatActivity() {
                     updateStep5()
 
                     val caseType = result.caseType ?: "NON-URGENT"
-                    val probabilities = result.probabilities
-                    val explanation = ArrayList(result.explanation ?: emptyList<String>())
                     
-                    // 🔹 Use risk_score from backend if available, otherwise calculate from probabilities
-                    val riskScore = result.riskScore ?: 0
-                    val probCritical = if (probabilities?.critical != null) (probabilities.critical * 100).toInt() else riskScore
-                    val probUrgent = ((probabilities?.urgent ?: 0.0) * 100).toInt()
-                    val probNonUrgent = ((probabilities?.nonUrgent ?: 0.0) * 100).toInt()
+                    var riskScore = 0
+                    result.riskScore?.let { rs ->
+                        try {
+                            if (rs.isJsonPrimitive) {
+                                val prim = rs.asJsonPrimitive
+                                if (prim.isNumber) {
+                                    riskScore = prim.asDouble.toInt()
+                                } else if (prim.isString) {
+                                    riskScore = prim.asString.toDouble().toInt()
+                                }
+                            }
+                        } catch (e: Exception) {
+                            android.util.Log.e("AIProcessing", "Error parsing riskScore: ${e.message}")
+                        }
+                    }
+                    
+                    val explanationList = arrayListOf<String>()
+                    result.explanation?.let { expl ->
+                        try {
+                            if (expl.isJsonArray) {
+                                expl.asJsonArray.forEach { explanationList.add(it.asString) }
+                            } else if (expl.isJsonPrimitive && expl.asJsonPrimitive.isString) {
+                                val array = com.google.gson.JsonParser().parse(expl.asString).asJsonArray
+                                array.forEach { explanationList.add(it.asString) }
+                            }
+                        } catch (e: Exception) {
+                            explanationList.add(expl.toString())
+                        }
+                    }
 
-                    android.util.Log.d("AIProcessing", "AI Result: $caseType, Score: $riskScore%, Probs: $probabilities")
+                    var probCritical = riskScore
+                    var probUrgent = 0
+                    var probNonUrgent = 0
+
+                    result.probabilities?.let { probs ->
+                        try {
+                            val probsObj = if (probs.isJsonObject) {
+                                probs.asJsonObject
+                            } else if (probs.isJsonPrimitive && probs.asJsonPrimitive.isString) {
+                                com.google.gson.JsonParser().parse(probs.asString).asJsonObject
+                            } else null
+
+                            probsObj?.let {
+                                if (it.has("CRITICAL") && !it.get("CRITICAL").isJsonNull) {
+                                    probCritical = (it.get("CRITICAL").asDouble * 100).toInt()
+                                }
+                                if (it.has("URGENT") && !it.get("URGENT").isJsonNull) {
+                                    probUrgent = (it.get("URGENT").asDouble * 100).toInt()
+                                }
+                                if (it.has("NON-URGENT") && !it.get("NON-URGENT").isJsonNull) {
+                                    probNonUrgent = (it.get("NON-URGENT").asDouble * 100).toInt()
+                                }
+                            }
+                        } catch (e: Exception) {
+                            android.util.Log.e("AIProcessing", "Error parsing probabilities: ${e.message}")
+                        }
+                    }
+
+                    val explanation = explanationList
+
+                    android.util.Log.d("AIProcessing", "AI Result: $caseType, Score: $riskScore%, Probs: $probCritical/$probUrgent/$probNonUrgent")
                     
                     // Detailed Debug Toast
                     val debugMsg = "Score: $riskScore%, BP: $systolic/$diastolic, HR: $heartRate, Temp: $temperature"
@@ -248,17 +301,31 @@ class AIProcessingActivity : AppCompatActivity() {
 
         binding.root.postDelayed({
             startActivity(intent)
-            overridePendingTransition(
-                android.R.anim.fade_in,
-                android.R.anim.fade_out
-            )
+            if (Build.VERSION.SDK_INT >= 34) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, android.R.anim.fade_in, android.R.anim.fade_out)
+            } else {
+                @Suppress("DEPRECATION")
+                overridePendingTransition(
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out
+                )
+            }
             finish()
         }, 1500)
     }
 
     private fun handleError(message: String) {
         android.util.Log.e("AIProcessing", "Triage Process Error: $message")
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        
+        // If it's a 422 error, the message might contain the raw JSON.
+        // Let's try to make it more readable if it's "Unprocessable Content"
+        val displayMessage = if (message.contains("Unprocessable Content")) {
+            "$message\n(Check if all fields are valid, especially Email)"
+        } else {
+            message
+        }
+        
+        Toast.makeText(this, displayMessage, Toast.LENGTH_LONG).show()
         
         // Give the user time to read the message before finishing
         binding.root.postDelayed({

@@ -1,6 +1,7 @@
 package com.simats.triageai
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,7 +23,12 @@ class TakeActionActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        patient = intent.getParcelableExtra<Patient>("patient")
+        patient = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("patient", Patient::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Patient>("patient")
+        }
         if (patient != null) {
             binding.tvPatientName.text = patient?.name
         }
@@ -34,8 +40,16 @@ class TakeActionActivity : AppCompatActivity() {
             val patientIdInt = patient?.id?.toIntOrNull() ?: -1
             val paramedicIdInt = patient?.paramedicId?.toIntOrNull() ?: -1
 
-            if (doctorId == -1 || patientIdInt == -1 || paramedicIdInt == -1) {
-                Toast.makeText(this, "Session, Patient or Paramedic error", Toast.LENGTH_SHORT).show()
+            if (doctorId == -1) {
+                Toast.makeText(this, "Session error: Please login again", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (patientIdInt == -1) {
+                Toast.makeText(this, "Patient error: Invalid patient ID", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (paramedicIdInt == -1) {
+                Toast.makeText(this, "Paramedic error: Missing paramedic association for this patient", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 

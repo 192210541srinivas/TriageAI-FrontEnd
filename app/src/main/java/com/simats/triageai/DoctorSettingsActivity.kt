@@ -59,7 +59,6 @@ class DoctorSettingsActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         binding.navDashboard.setOnClickListener {
-            startActivity(Intent(this, DoctorDashboardActivity::class.java))
             finish()
         }
 

@@ -441,66 +441,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!-- CONTACT SECTION -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp"
-                android:text="CONTACT US"
-                android:textColor="#6B7280"
-                android:textSize="12sp"
-                android:textStyle="bold" />
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="0dp">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layoutContactUs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground">
-                    <ImageView
-                        android:id="@+id/ivChat"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="#F9FAFB"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_chat_bubble"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="#6B7280" />
-                    <TextView
-                        android:id="@+id/tvChatTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="Contact Us"
-                        android:textColor="#111827"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/ivChat"
-                        app:layout_constraintTop_toTopOf="@id/ivChat" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Get in touch with support"
-                        android:textColor="#6B7280"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@id/tvChatTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvChatTitle" />
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="#9CA3AF" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                app:cardElevation="0dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSignOut"

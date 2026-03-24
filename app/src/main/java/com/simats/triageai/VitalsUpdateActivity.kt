@@ -1,5 +1,6 @@
 package com.simats.triageai
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,12 @@ class VitalsUpdateActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        patient = intent.getParcelableExtra("patient")
+        patient = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("patient", Patient::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra("patient")
+        }
         if (patient == null) {
             Toast.makeText(this, "Patient data missing", Toast.LENGTH_SHORT).show()
             finish()
@@ -45,6 +51,46 @@ class VitalsUpdateActivity : AppCompatActivity() {
         if (systolic.isEmpty() || diastolic.isEmpty() || hr.isEmpty() || 
             spo2.isEmpty() || temp.isEmpty() || respRate.isEmpty()) {
             Toast.makeText(this, "Please fill all vitals", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Range checks
+        val sysVal = systolic.toFloatOrNull() ?: 0f
+        val diaVal = diastolic.toFloatOrNull() ?: 0f
+        val hrVal = hr.toFloatOrNull() ?: 0f
+        val tempVal = temp.toFloatOrNull() ?: 0f
+        val spo2Val = spo2.toFloatOrNull() ?: 0f
+        val rrVal = respRate.toFloatOrNull() ?: 0f
+
+        val vSys = com.simats.triageai.utils.ValidationUtils.validateVitalRange("SYSTOLIC", sysVal)
+        val vDia = com.simats.triageai.utils.ValidationUtils.validateVitalRange("DIASTOLIC", diaVal)
+        val vHr = com.simats.triageai.utils.ValidationUtils.validateVitalRange("HR", hrVal)
+        val vTemp = com.simats.triageai.utils.ValidationUtils.validateVitalRange("TEMP", tempVal)
+        val vSpo2 = com.simats.triageai.utils.ValidationUtils.validateVitalRange("SPO2", spo2Val)
+        val vRr = com.simats.triageai.utils.ValidationUtils.validateVitalRange("RR", rrVal)
+
+        if (vSys is com.simats.triageai.utils.ValidationResult.Invalid) {
+            binding.etSystolic.error = vSys.message
+            return
+        }
+        if (vDia is com.simats.triageai.utils.ValidationResult.Invalid) {
+            binding.etDiastolic.error = vDia.message
+            return
+        }
+        if (vHr is com.simats.triageai.utils.ValidationResult.Invalid) {
+            binding.etHeartRate.error = vHr.message
+            return
+        }
+        if (vTemp is com.simats.triageai.utils.ValidationResult.Invalid) {
+            binding.etTemperature.error = vTemp.message
+            return
+        }
+        if (vSpo2 is com.simats.triageai.utils.ValidationResult.Invalid) {
+            binding.etSpo2.error = vSpo2.message
+            return
+        }
+        if (vRr is com.simats.triageai.utils.ValidationResult.Invalid) {
+            binding.etRespRate.error = vRr.message
             return
         }
 

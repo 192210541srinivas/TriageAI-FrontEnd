@@ -55,6 +55,10 @@ class EditStaffActivity : AppCompatActivity() {
             Toast.makeText(this, "Name is required", Toast.LENGTH_SHORT).show()
             return
         }
+        if (!name.matches("^[a-zA-Z\\s]+$".toRegex())) {
+            Toast.makeText(this, "Name must contain only alphabets", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val request = UpdateStaffRequest(name, phone, dept, address)
 

@@ -3,6 +3,7 @@ package com.simats.triageai
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.OvershootInterpolator
@@ -24,7 +25,12 @@ class ActivePatientDetailActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val patient = intent.getParcelableExtra<Patient>("patient")
+        val patient = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("patient", Patient::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Patient>("patient")
+        }
         if (patient == null) {
             Toast.makeText(this, "Patient data not found", Toast.LENGTH_SHORT).show()
             finish()

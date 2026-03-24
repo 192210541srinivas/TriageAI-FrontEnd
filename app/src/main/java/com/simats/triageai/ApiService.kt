@@ -60,7 +60,7 @@ interface ApiService {
     ): Response<GenericResponse>
 
     @GET("vitals/latest/{patient_id}")
-    fun getLatestVitals(@Path("patient_id") patientId: Int): Call<LatestVitalsResponse>
+    suspend fun getLatestVitals(@Path("patient_id") patientId: Int): Response<LatestVitalsResponse>
 
 
     // ==========================

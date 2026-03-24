@@ -58,7 +58,7 @@ class AdminProfileActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnSignOut).setOnClickListener {
             getSharedPreferences("TriageAI", MODE_PRIVATE).edit().clear().apply()
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, RoleSelectionActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
@@ -72,8 +72,6 @@ class AdminProfileActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_admin_dashboard -> {
-                    startActivity(Intent(this, AdminDashboardActivity::class.java))
-                    overridePendingTransition(0, 0)
                     finish()
                     true
                 }

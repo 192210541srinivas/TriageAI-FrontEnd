@@ -10,6 +10,8 @@ import com.simats.triageai.databinding.ActivityDoctorHistoryNewBinding
 import com.simats.triageai.models.Patient
 import com.simats.triageai.models.Priority
 import kotlinx.coroutines.launch
+import android.text.Editable
+import android.text.TextWatcher
 
 class DoctorHistoryNewActivity : AppCompatActivity() {
 
@@ -25,6 +27,7 @@ class DoctorHistoryNewActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setupUI()
+        setupSearch()
         loadHistoryFromBackend()
     }
 
@@ -34,7 +37,6 @@ class DoctorHistoryNewActivity : AppCompatActivity() {
         }
 
         binding.navDashboard.setOnClickListener {
-            startActivity(Intent(this, DoctorDashboardActivity::class.java))
             finish()
         }
 
@@ -46,6 +48,30 @@ class DoctorHistoryNewActivity : AppCompatActivity() {
         binding.navSettings.setOnClickListener {
             startActivity(Intent(this, DoctorSettingsActivity::class.java))
             finish()
+        }
+    }
+
+    private fun setupSearch() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterHistory(s?.toString() ?: "")
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun filterHistory(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            historyPatients
+        } else {
+            historyPatients.filter {
+                it.name.contains(query, ignoreCase = true) || it.id.contains(query, ignoreCase = true)
+            }
+        }
+        if (::adapter.isInitialized) {
+            adapter.updateList(filteredList)
+            binding.tvCasesCount.text = "Showing ${filteredList.size} cases"
         }
     }
 
@@ -62,6 +88,7 @@ class DoctorHistoryNewActivity : AppCompatActivity() {
                         Patient(
                             id = item.case_code ?: "",
                             name = item.patient_name ?: "Unknown",
+                            numericId = item.patient_id,
                             age = 0,
                             gender = "",
                             condition = item.case_type ?: "NON_URGENT",

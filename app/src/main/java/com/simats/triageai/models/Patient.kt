@@ -46,5 +46,6 @@ data class Patient(
     var outcome: String? = null,
     var aiRecommendation: String = "",
     var treatmentSummary: String = "",
-    var doctorId: String = ""
+    var doctorId: String = "",
+    var numericId: Int = 0
 ) : Parcelable
